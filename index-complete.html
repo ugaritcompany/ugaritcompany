@@ -1,0 +1,2085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UGARIT Company for Construction — Excellence in Building & Restoration</title>
+    <!-- Version 2.0 - Fixed scrollToSection and theme toggle -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Work+Sans:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #1a2b4a;
+            --navy-dark: #0f1a2e;
+            --navy-light: #2d3e5f;
+            --gold: #d4a574;
+            --gold-light: #e8c9a0;
+            --gold-dark: #b8895f;
+        }
+
+        /* Light Theme - Default */
+        body {
+            --bg: #fafaf8;
+            --bg-alt: #ffffff;
+            --text: #1a2b4a;
+            --text-secondary: #666666;
+            --border: rgba(26, 43, 74, 0.15);
+        }
+
+        /* Dark Theme */
+        [data-theme="dark"] body {
+            --bg: #0a0a0a;
+            --bg-alt: #151515;
+            --text: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: all 0.5s ease;
+            overflow-x: hidden;
+        }
+
+        /* Apply 80% zoom to all sections except hero */
+        section:not(.hero),
+        .floating-nav,
+        .footer {
+            zoom: 0.8;
+            -moz-transform: scale(0.8);
+            -moz-transform-origin: top center;
+        }
+
+        /* Keep hero at 100% */
+        .hero {
+            zoom: 1;
+        }
+
+        /* Floating Navigation - RIGHT SIDE */
+        .floating-nav {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background: rgba(26, 43, 74, 0.15);
+            backdrop-filter: blur(20px);
+            padding: 1.5rem 1rem;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-item {
+            width: 45px;
+            height: 45px;
+            background: rgba(212, 165, 116, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .nav-item svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--gold);
+            fill: none;
+            stroke-width: 2;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: var(--gold);
+            transform: translateX(-5px) scale(1.1);
+            border-color: var(--gold);
+            box-shadow: 0 5px 20px rgba(212, 165, 116, 0.4);
+        }
+
+        .nav-item:hover svg {
+            stroke: var(--navy);
+        }
+
+        .nav-item .tooltip {
+            position: absolute;
+            right: 65px;
+            background: var(--navy);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-item .tooltip::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid var(--navy);
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+        }
+
+        .nav-item:hover .tooltip {
+            opacity: 1;
+            right: 70px;
+        }
+
+        .controls {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .ctrl-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(26, 43, 74, 0.8);
+            backdrop-filter: blur(15px);
+            border: 2px solid var(--gold);
+            color: var(--text);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+
+        .ctrl-btn:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--navy);
+            transform: scale(1.1);
+        }
+
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 4rem;
+            right: 2rem;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+            }
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.7);
+        }
+
+        .whatsapp-float svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+
+        /* Hero Section - Enhanced */
+        .hero {
+            height: 100vh;
+            max-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        /* Logo Watermark in Hero Background - Static & Faded */
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            max-width: 700px;
+            height: 70%;
+            max-height: 700px;
+            background-image: url('images/logo.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.06;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        [data-theme="dark"] .hero-bg::before {
+            opacity: 0.05;
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-slide::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 0%, var(--bg) 100%);
+            opacity: 0.93;
+            z-index: 1;
+        }
+
+        .hero-slide:nth-child(1) {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+        }
+
+        .hero-slide:nth-child(2) {
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--gold-dark) 100%);
+        }
+
+        .hero-slide:nth-child(3) {
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--navy) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 1200px;
+        }
+
+        .logo-wrapper {
+            margin-bottom: 1rem;
+            animation: floatLogo 4s ease-in-out infinite;
+        }
+
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .hero-logo {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            border-radius: 50%;
+            border: 4px solid var(--gold);
+            padding: 12px;
+            background: var(--bg-alt);
+            box-shadow: 0 20px 60px rgba(212, 165, 116, 0.4);
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            color: var(--navy);
+            letter-spacing: 0.02em;
+        }
+
+        [data-theme="dark"] .hero-title {
+            background: linear-gradient(135deg, var(--text) 0%, var(--gold) 50%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(0.9rem, 1.8vw, 1.3rem);
+            color: var(--navy);
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
+
+        [data-theme="dark"] .hero-subtitle {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .hero-tagline {
+            font-family: 'Amiri', serif;
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            color: var(--gold-dark);
+            margin-bottom: 1rem;
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        [data-theme="dark"] .hero-tagline {
+            color: var(--gold);
+            font-weight: 400;
+        }
+
+        .hero-description {
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+            font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+            line-height: 1.6;
+            color: var(--navy);
+            font-weight: 500;
+        }
+
+        [data-theme="dark"] .hero-description {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--navy);
+            display: block;
+            margin-bottom: 0.3rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] .stat-num {
+            color: var(--gold);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        [data-theme="dark"] .stat-label {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        /* Vision Mission */
+        .vm-section {
+            padding: 8rem 2rem;
+            background: var(--bg-alt);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 5rem;
+        }
+
+        .section-tag {
+            font-size: 0.9rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .vm-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 3rem;
+        }
+
+        .vm-card {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            padding: 4rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vm-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.05) 0%, transparent 100%);
+            transition: left 0.5s ease;
+        }
+
+        .vm-card:hover::before {
+            left: 0;
+        }
+
+        .vm-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .vm-icon {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .vm-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .vm-text {
+            line-height: 1.9;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Features */
+        .features-section {
+            padding: 8rem 2rem;
+            background: var(--bg);
+        }
+
+        .features-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2.5rem;
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gold);
+            transition: width 0.4s ease;
+        }
+
+        .feature-card:hover::after {
+            width: 100%;
+        }
+
+        .feature-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 8rem 2rem;
+            background: var(--bg-alt);
+        }
+
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            max-width: 900px;
+            height: 550px;
+            margin: 0 auto 4rem;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            border: 3px solid var(--gold);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--gold);
+            font-weight: 700;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .map-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .map-stat {
+            background: var(--bg);
+            padding: 2.5rem;
+            border: 2px solid var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .map-stat:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.3);
+        }
+
+        .map-stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .map-stat-label {
+            font-size: 0.95rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        /* Projects Section - Enhanced */
+        .projects {
+            padding: 8rem 2rem;
+            background: var(--bg);
+        }
+
+        .projects-showcase {
+            max-width: 1600px;
+            margin: 4rem auto 0;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: var(--bg-alt);
+            border: 2px solid var(--border);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--navy) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .project-card:hover::before {
+            opacity: 0.15;
+        }
+
+        .project-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(212, 165, 116, 0.3);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 320px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-card:hover .project-img img {
+            transform: scale(1.15);
+        }
+
+        .project-img-label {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gold);
+            color: var(--navy);
+            padding: 0.6rem 1.2rem;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            z-index: 2;
+        }
+
+        .project-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+            padding: 2rem 1.5rem 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+            z-index: 2;
+        }
+
+        .project-card:hover .project-overlay {
+            transform: translateY(0);
+        }
+
+        .project-overlay-text {
+            color: white;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .project-content {
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.85rem;
+            color: var(--gold);
+            letter-spacing: 0.2em;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .project-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .project-location {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-location::before {
+            content: '📍';
+        }
+
+        /* Project Modal */
+        .project-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.96);
+            z-index: 2000;
+            padding: 3rem;
+            overflow-y: auto;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-modal.active {
+            display: flex;
+        }
+.modal-slideshow {
+    margin-top: 2rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.slide-container {
+    flex: 1;
+    max-width: 700px;
+    text-align: center;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.slide-image {
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
+    object-fit: contain;
+    border-radius: 5px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.slide-arrow {
+    width: 50px;
+    height: 50px;
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.slide-arrow:hover {
+    background: var(--gold-dark);
+    transform: scale(1.1);
+}
+
+.slide-arrow:active {
+    transform: scale(0.95);
+}
+
+[data-theme="dark"] .slide-arrow {
+    color: var(--navy);
+}
+
+.slide-counter {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .slide-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .slide-container {
+        min-height: 300px;
+    }
+}
+        .modal-content {
+            background: var(--bg-alt);
+    max-width: 900px;
+    width: 90%;
+    border: 3px solid var(--gold);
+    position: relative;
+    animation: slideUp 0.4s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 2rem;
+        }
+        .modal-single-image {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.modal-single-image img {
+    border: 2px solid var(--border);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 45px;
+            height: 45px;
+            background: var(--gold);
+            border: none;
+            color: var(--navy);
+            font-size: 1.8rem;
+            cursor: pointer;
+            font-weight: 700;
+            z-index: 10;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+            background: var(--gold-dark);
+        }
+
+        .modal-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            padding: 1.5rem;
+        }
+
+        .modal-img {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-weight: 700;
+            border: 2px solid var(--gold);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .modal-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .modal-img:hover img {
+            transform: scale(1.1);
+        }
+
+        .modal-info {
+           padding: 0;
+    border-top: none;
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-description {
+            line-height: 2;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 8rem 2rem;
+            background: var(--bg-alt);
+        }
+
+        .team-grid {
+            max-width: 1400px;
+            margin: 4rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        @media (max-width: 1200px) {
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .team-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 4px;
+            background: var(--gold);
+            transition: width 0.4s ease;
+        }
+
+        .team-card:hover::before {
+            width: 80%;
+        }
+
+        .team-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-8px);
+        }
+
+        .team-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-role {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+        }
+
+        .team-count {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Activities */
+        .activities-section {
+            padding: 8rem 2rem;
+            background: var(--bg);
+        }
+
+        .activities-content {
+            max-width: 1000px;
+            margin: 3rem auto 0;
+        }
+
+        .activities-text {
+            font-size: 1.2rem;
+            line-height: 2.1;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        /* Download */
+        .download-section {
+            padding: 8rem 2rem;
+            background: var(--bg-alt);
+            text-align: center;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1.2rem;
+            padding: 1.8rem 3.5rem;
+            background: var(--gold);
+            color: var(--navy);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            margin-top: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.3);
+        }
+
+        .download-btn:hover {
+            background: var(--gold-dark);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 165, 116, 0.5);
+        }
+
+        /* CEO Section */
+        .ceo-section {
+            padding: 8rem 2rem;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+        }
+
+        .ceo-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .ceo-photo {
+            width: 100%;
+            height: 550px;
+            object-fit: cover;
+            border: 5px solid var(--gold);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+        }
+
+        .ceo-photo-placeholder {
+            width: 100%;
+            height: 550px;
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--navy-dark) 100%);
+            border: 5px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .ceo-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+
+        .ceo-title {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 2.5rem;
+            font-style: italic;
+        }
+
+        .ceo-bio {
+            line-height: 2;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        .ceo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.4rem 3rem;
+            background: var(--gold);
+            color: var(--navy);
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .ceo-link:hover {
+            background: var(--gold-dark);
+            transform: translateX(10px);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 8rem 2rem;
+            background: var(--bg);
+        }
+
+        .contact-grid {
+            max-width: 1400px;
+            margin: 4rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .contact-box {
+            background: var(--bg-alt);
+            border: 2px solid var(--border);
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .contact-box:hover {
+            border-color: var(--gold);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            color: var(--gold);
+        }
+
+        .contact-box p {
+            line-height: 2;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .contact-box a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-box a:hover {
+            color: var(--gold);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-alt);
+            padding: 4rem 2rem;
+            border-top: 2px solid var(--border);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .social-btn:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--navy);
+            transform: scale(1.1);
+        }
+
+        .footer-links h4 {
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .map-placeholder {
+    width: 100%      ;       
+    max-width: 900px ;       
+    height: auto      ;      
+    min-height: 400px   ;  
+}
+
+.map-placeholder img {
+    width: 100%       ;      
+    height: auto      ;     
+    max-height: 600px  ;    
+    object-fit: contain ;    
+}
+
+        @media (max-width: 1200px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .ceo-container,
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .map-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .floating-nav {
+                display: none;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            
+
+            .vm-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Navigation -->
+    <div class="floating-nav">
+        <div class="nav-item" onclick="scrollToSection('hero')">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <div class="tooltip">Home</div>
+        </div>
+        <div class="nav-item" onclick="scrollToSection('vision')">
+            <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            <div class="tooltip">Vision & Mission</div>
+        </div>
+        <div class="nav-item" onclick="scrollToSection('features')">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <div class="tooltip">Features</div>
+        </div>
+        <div class="nav-item" onclick="scrollToSection('map')">
+            <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+            <div class="tooltip">Coverage Map</div>
+        </div>
+        <div class="nav-item" onclick="scrollToSection('projects')">
+            <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            <div class="tooltip">Projects</div>
+        </div>
+        <div class="nav-item" onclick="scrollToSection('services')">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <div class="tooltip">Services</div>
+        </div>
+        <div class="nav-item" onclick="scrollToSection('team')">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            <div class="tooltip">Our Team</div>
+        </div>
+        <div class="nav-item" onclick="scrollToSection('activities')">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            <div class="tooltip">Activities</div>
+        </div>
+        <div class="nav-item" onclick="scrollToSection('download')">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <div class="tooltip">Download</div>
+        </div>
+        <div class="nav-item" onclick="scrollToSection('ceo')">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <div class="tooltip">Meet CEO</div>
+        </div>
+        <div class="nav-item" onclick="scrollToSection('contact')">
+            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            <div class="tooltip">Contact Us</div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+        <button class="ctrl-btn" id="themeToggle" title="Toggle Theme">☀</button>
+        <!-- <a href="index-ar.html" class="ctrl-btn" title="العربية">ع</a> -->
+    </div>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="hero-slide active"></div>
+            <div class="hero-slide"></div>
+            <div class="hero-slide"></div>
+        </div>
+        <div class="hero-content">
+            <div class="logo-wrapper">
+                <img src="images/logo.png" alt="UGARIT" class="hero-logo" onerror="this.style.display='none'">
+            </div>
+            <h1 class="hero-title">UGARIT Company for Construction</h1>
+            <p class="hero-subtitle">Building Excellence Since 2018</p>
+            <p class="hero-tagline">#وللحلم_بقية</p>
+            <p class="hero-description">
+                Leading Syrian engineering firm specializing in heritage restoration and modern construction. Three branches across Damascus, Latakia, and Aleppo delivering exceptional quality through innovative techniques and traditional craftsmanship.
+            </p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-num">100+</span>
+                    <span class="stat-label">Projects</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">89</span>
+                    <span class="stat-label">Studies</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">8+</span>
+                    <span class="stat-label">Years</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">3</span>
+                    <span class="stat-label">Branches</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision & Mission -->
+    <section class="vm-section" id="vision">
+        <div class="section-header">
+            <div class="section-tag">Our Foundation</div>
+            <h2 class="section-title">Vision & Mission</h2>
+            <p class="section-subtitle">Guiding principles that drive our excellence</p>
+        </div>
+        <div class="vm-container">
+            <div class="vm-card">
+                <div class="vm-icon">🎯</div>
+                <h2 class="vm-title">Our Vision</h2>
+                <p class="vm-text">To be the leading construction and restoration company in Syria, preserving architectural heritage while building sustainable modern structures that stand the test of time. We envision a future where Syria's rich historical legacy is protected and celebrated through meticulous restoration, while innovative construction techniques create lasting value for generations to come.</p>
+            </div>
+            <div class="vm-card">
+                <div class="vm-icon">🚀</div>
+                <h2 class="vm-title">Our Mission</h2>
+                <p class="vm-text">Delivering exceptional engineering solutions through innovative techniques, traditional craftsmanship, and unwavering commitment to quality, safety, and client satisfaction. We combine the wisdom of traditional building methods with modern technology to create structures that honor the past while embracing the future, ensuring every project exceeds expectations.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features-section" id="features">
+        <div class="section-header">
+            <div class="section-tag">Why Choose Us</div>
+            <h2 class="section-title">Company Features & Collaboration</h2>
+            <p class="section-subtitle">What sets us apart in the construction industry</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3 class="feature-title">7+ Years Excellence</h3>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🤝</div>
+                <h3 class="feature-title">Trusted Partnerships</h3>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✅</div>
+                <h3 class="feature-title">Quality Assurance</h3>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💼</div>
+                <h3 class="feature-title">Professional Team</h3>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔧</div>
+                <h3 class="feature-title">Modern Equipment</h3>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">89 Studies Completed</h3>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏛️</div>
+                <h3 class="feature-title">Heritage Specialists</h3>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Fast Delivery</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Syria Map -->
+    <section class="map-section" id="map">
+        <div class="section-header">
+            <div class="section-tag">Our Reach</div>
+            <h2 class="section-title">Coverage Across Syria</h2>
+            <p class="section-subtitle">Serving major cities with excellence</p>
+        </div>
+        <div class="map-container">
+            <div class="map-placeholder">
+                <div style="text-align: center;">
+                    <img src="images/syria-map.png" alt="Syria Coverage Map">
+                </div>
+            </div>
+            <div class="map-stats">
+                <div class="map-stat">
+                    <span class="map-stat-num">100+</span>
+                    <span class="map-stat-label">Projects Executed</span>
+                </div>
+                <div class="map-stat">
+                    <span class="map-stat-num">89</span>
+                    <span class="map-stat-label">Studies Completed</span>
+                </div>
+                <div class="map-stat">
+                    <span class="map-stat-num">3</span>
+                    <span class="map-stat-label">Branch Offices</span>
+                </div>
+                <div class="map-stat">
+                    <span class="map-stat-num">4</span>
+                    <span class="map-stat-label">Cities Covered</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="projects" id="projects">
+        <div class="section-header">
+            <div class="section-tag">Portfolio</div>
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">Click any project to explore details and gallery</p>
+        </div>
+        <div class="projects-showcase">
+            <div class="projects-grid">
+                <div class="project-card" onclick="openProjectModal('project1')">
+                    <div class="project-img">
+                        <img src="images/project-01-1.jpg" alt="Monastery" onerror="this.style.display='none'">
+                        <div class="project-img-label">IMAGE_02</div>
+                        <div class="project-overlay">
+                            <p class="project-overlay-text">Church rehabilitation, courtyard redesign, playground development</p>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-number">01 — 06</div>
+                        <h3 class="project-title">Our Lady of Assumption Monastery</h3>
+                        <p class="project-location">Latakia, Slunfeh</p>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="openProjectModal('project2')">
+                    <div class="project-img">
+                        <img src="images/project-02-1.jpg" alt="Monastery" onerror="this.style.display='none'">
+                        <div class="project-img-label">IMAGE_03</div>
+                        <div class="project-overlay">
+                            <p class="project-overlay-text">Basement rehabilitation, garden redesign, annex construction</p>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-number">02 — 06</div>
+                        <h3 class="project-title">Bab Touma Monastery</h3>
+                        <p class="project-location">Damascus, Old City</p>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="openProjectModal('project3')">
+                    <div class="project-img">
+                        <img src="images/project-03-1.jpg" alt="Care House" onerror="this.style.display='none'">
+                        <div class="project-img-label">IMAGE_04</div>
+                        <div class="project-overlay">
+                            <p class="project-overlay-text">Vertical expansion with traditional Damascene design</p>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-number">03 — 06</div>
+                        <h3 class="project-title">Care House Development</h3>
+                        <p class="project-location">Damascus, Bab Touma</p>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="openProjectModal('project4')">
+                    <div class="project-img">
+                        <img src="images/project-04-1.jpg" alt="Diocese" onerror="this.style.display='none'">
+                        <div class="project-img-label">IMAGE_05</div>
+                        <div class="project-overlay">
+                            <p class="project-overlay-text">Architectural restoration with structural reinforcement</p>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-number">04 — 06</div>
+                        <h3 class="project-title">Maronite Diocese</h3>
+                        <p class="project-location">Damascus</p>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="openProjectModal('project5')">
+                    <div class="project-img">
+                        <img src="images/project-05-1.jpg" alt="Cathedral" onerror="this.style.display='none'">
+                        <div class="project-img-label">IMAGE_06</div>
+                        <div class="project-overlay">
+                            <p class="project-overlay-text">Post-earthquake restoration with meticulous detailing</p>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-number">05 — 06</div>
+                        <h3 class="project-title">Latin Cathedral Restoration</h3>
+                        <p class="project-location">Aleppo</p>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="openProjectModal('project6')">
+                    <div class="project-img">
+                        <img src="images/project-06-1.jpg" alt="Offices" onerror="this.style.display='none'">
+                        <div class="project-img-label">IMAGE_07</div>
+                        <div class="project-overlay">
+                            <p class="project-overlay-text">Contemporary workspace design and technical equipment</p>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-number">06 — 06</div>
+                        <h3 class="project-title">Office Renovations</h3>
+                        <p class="project-location">Multiple Locations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 4rem;">
+            <button onclick="scrollToSection('download')" style="
+                padding: 1.5rem 3.5rem;
+                background: var(--gold);
+                color: var(--navy);
+                border: 2px solid var(--gold);
+                font-size: 1.1rem;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                border-radius: 5px;
+                box-shadow: 0 10px 30px rgba(212, 165, 116, 0.3);
+                display: inline-flex;
+                align-items: center;
+                gap: 1rem;
+            " onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 15px 40px rgba(212, 165, 116, 0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(212, 165, 116, 0.3)'">
+                And Many More Projects
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 0.5rem;">
+                    <path d="M12 5v14M19 12l-7 7-7-7"/>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- Project Modal -->
+    <div class="project-modal" id="projectModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeProjectModal()">×</button>
+        <div class="modal-info">
+            <h2 class="modal-title" id="modalTitle">Project Title</h2>
+            <p class="modal-description" id="modalDescription">Project description will be displayed here.</p>
+        </div>
+        
+        <div class="modal-slideshow">
+            <button class="slide-arrow slide-prev" onclick="changeSlide(-1)">❮</button>
+            <div class="slide-container" id="slideContainer">
+                <img src="" alt="Project Image" class="slide-image">
+            </div>
+            <button class="slide-arrow slide-next" onclick="changeSlide(1)">❯</button>
+        </div>
+        
+        <div class="slide-counter" id="slideCounter">1 / 4</div>
+    </div>
+</div>
+
+    <!-- Services Section - MOST IMPORTANT -->
+    <section class="services-section" id="services" style="padding: 8rem 2rem; background: var(--bg-alt);">
+        <div class="section-header">
+            <div class="section-tag">What We Offer</div>
+            <h2 class="section-title">Our Core Services</h2>
+            <p class="section-subtitle">Comprehensive construction and restoration solutions</p>
+        </div>
+        
+        <div class="services-grid" style="max-width: 1400px; margin: 4rem auto 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem;">
+            <div class="service-card" style="background: var(--bg); border: 2px solid var(--border); padding: 3rem; transition: all 0.4s ease; position: relative; overflow: hidden;" onmouseover="this.style.borderColor='var(--gold)'; this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 50px rgba(0,0,0,0.3)'" onmouseout="this.style.borderColor='var(--border)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="font-size: 3.5rem; margin-bottom: 2rem;">🏛️</div>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 1.2rem;">Heritage Restoration</h3>
+                <p style="line-height: 1.9; color: var(--text-secondary); font-size: 1.05rem;">Specialized restoration of historic and religious buildings, preserving architectural identity and cultural significance through traditional techniques and modern safety standards.</p>
+            </div>
+
+            <div class="service-card" style="background: var(--bg); border: 2px solid var(--border); padding: 3rem; transition: all 0.4s ease; position: relative; overflow: hidden;" onmouseover="this.style.borderColor='var(--gold)'; this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 50px rgba(0,0,0,0.3)'" onmouseout="this.style.borderColor='var(--border)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="font-size: 3.5rem; margin-bottom: 2rem;">🏗️</div>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 1.2rem;">Construction & Building</h3>
+                <p style="line-height: 1.9; color: var(--text-secondary); font-size: 1.05rem;">Complete construction services from foundations to finishing, integrating traditional craftsmanship with modern building techniques for residential and commercial projects.</p>
+            </div>
+
+            <div class="service-card" style="background: var(--bg); border: 2px solid var(--border); padding: 3rem; transition: all 0.4s ease; position: relative; overflow: hidden;" onmouseover="this.style.borderColor='var(--gold)'; this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 50px rgba(0,0,0,0.3)'" onmouseout="this.style.borderColor='var(--border)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="font-size: 3.5rem; margin-bottom: 2rem;">🎨</div>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 1.2rem;">Finishing Works</h3>
+                <p style="line-height: 1.9; color: var(--text-secondary); font-size: 1.05rem;">Premium interior and exterior finishing using carefully selected traditional and contemporary materials with attention to economic considerations and aesthetic excellence.</p>
+            </div>
+
+            <div class="service-card" style="background: var(--bg); border: 2px solid var(--border); padding: 3rem; transition: all 0.4s ease; position: relative; overflow: hidden;" onmouseover="this.style.borderColor='var(--gold)'; this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 50px rgba(0,0,0,0.3)'" onmouseout="this.style.borderColor='var(--border)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="font-size: 3.5rem; margin-bottom: 2rem;">⚙️</div>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 1.2rem;">Technical Equipment</h3>
+                <p style="line-height: 1.9; color: var(--text-secondary); font-size: 1.05rem;">Comprehensive project equipment including technical installations, interior decorations, and integrated electronic systems for modern functionality.</p>
+            </div>
+
+            <div class="service-card" style="background: var(--bg); border: 2px solid var(--border); padding: 3rem; transition: all 0.4s ease; position: relative; overflow: hidden;" onmouseover="this.style.borderColor='var(--gold)'; this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 50px rgba(0,0,0,0.3)'" onmouseout="this.style.borderColor='var(--border)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="font-size: 3.5rem; margin-bottom: 2rem;">📐</div>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 1.2rem;">Engineering Studies</h3>
+                <p style="line-height: 1.9; color: var(--text-secondary); font-size: 1.05rem;">Specialized consulting services for project planning, budget preparation, and selection of appropriate engineering teams and methodologies for optimal results.</p>
+            </div>
+
+            <div class="service-card" style="background: var(--bg); border: 2px solid var(--border); padding: 3rem; transition: all 0.4s ease; position: relative; overflow: hidden;" onmouseover="this.style.borderColor='var(--gold)'; this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 50px rgba(0,0,0,0.3)'" onmouseout="this.style.borderColor='var(--border)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="font-size: 3.5rem; margin-bottom: 2rem;">☀️</div>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 1.2rem;">Alternative Energy</h3>
+                <p style="line-height: 1.9; color: var(--text-secondary); font-size: 1.05rem;">Installation of solar energy systems and sustainable eco-friendly solutions for both modern developments and heritage structures, promoting environmental responsibility.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="team-section" id="team">
+        <div class="section-header">
+            <div class="section-tag">Human Resources</div>
+            <h2 class="section-title">Our Professional Team</h2>
+            <p class="section-subtitle">Specialized engineers and expert craftsmen</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-icon">👷</div>
+                <h3 class="team-role">Civil Engineers</h3>
+                <p class="team-count">Specialized Engineering Team</p>
+            </div>
+            <div class="team-card">
+                <div class="team-icon">🏛️</div>
+                <h3 class="team-role">Restoration Specialists</h3>
+                <p class="team-count">Expert Heritage Craftsmen</p>
+            </div>
+            <div class="team-card">
+                <div class="team-icon">📐</div>
+                <h3 class="team-role">Architects</h3>
+                <p class="team-count">Creative Design Team</p>
+            </div>
+            <div class="team-card">
+                <div class="team-icon">⚙️</div>
+                <h3 class="team-role">Technical Engineers</h3>
+                <p class="team-count">Installation & Equipment Experts</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities -->
+    <section class="activities-section" id="activities">
+        <div class="section-header">
+            <div class="section-tag">What We Do</div>
+            <h2 class="section-title">Company Activities</h2>
+            <p class="section-subtitle">Comprehensive construction and restoration services</p>
+        </div>
+        <div class="activities-content">
+            <p class="activities-text">
+                UGARIT Company for Construction specializes in comprehensive construction and restoration services across Syria. Our core activities include heritage building restoration, modern construction projects, premium finishing works, technical installations, engineering consultancy, and sustainable energy solutions. We serve religious institutions, government projects, and private clients with equal dedication. Our expertise spans from delicate restoration of centuries-old structures to contemporary commercial developments, always maintaining the highest standards of quality, safety, and professional excellence.
+            </p>
+        </div>
+    </section>
+
+    <!-- Download -->
+    <section class="download-section" id="download">
+        <div class="section-header">
+            <div class="section-tag">Resources</div>
+            <h2 class="section-title">Company Profile</h2>
+            <p class="section-subtitle">Download our comprehensive portfolio and company details</p>
+        </div>
+        <a href="documents/UGARIT-Company-Profile.pdf" class="download-btn" download>
+            📥 Download PDF Profile
+        </a>
+    </section>
+
+    <!-- CEO -->
+    <section class="ceo-section" id="ceo">
+        <div class="section-header" style="margin-bottom: 4rem;">
+            <div class="section-tag" style="color: var(--gold);">Leadership</div>
+            <h2 class="section-title" style="color: var(--gold);">Meet Our CEO</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.7);">Two decades of excellence in construction and restoration</p>
+        </div>
+        <div class="ceo-container">
+            <div>
+                <img src="images/director.jpg" alt="Ramez Zaza" class="ceo-photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="ceo-photo-placeholder" style="display:none;">CEO PHOTO</div>
+            </div>
+            <div class="ceo-info">
+                <h2>Ramez Abdalnour Zaza</h2>
+                <p class="ceo-title">Founder & Director, UGARIT Company for Construction</p>
+                <p class="ceo-bio">
+                    With over 20 years of distinguished experience in construction management and heritage restoration, Ramez Zaza has led UGARIT to become a trusted name in Syrian construction. His expertise combines traditional craftsmanship with modern innovation, overseeing major projects including the Saint Ananias Shrine restoration and serving as the accredited engineering consultant for the Syriac Catholic Archdiocese in Damascus.
+                </p>
+                <p class="ceo-bio">
+                    A graduate of Tishreen University's Faculty of Economics, Ramez brings both business acumen and technical expertise to every project, ensuring exceptional quality and client satisfaction.
+                </p>
+                <a href="director.html" class="ceo-link">View Full Profile →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact-section" id="contact">
+        <div class="section-header">
+            <div class="section-tag">Get In Touch</div>
+            <h2 class="section-title">Contact Information</h2>
+            <p class="section-subtitle">Let's discuss your next project</p>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-box">
+                <div class="contact-icon">📍</div>
+                <h3>Branch Locations</h3>
+                <p>
+                    <strong>Damascus</strong><br>Bab Sharqi, Al-Zaytoun Street<br><br>
+                    <strong>Latakia</strong><br>Martakla<br><br>
+                    <strong>Aleppo</strong><br>Al-Aziziyah
+                </p>
+            </div>
+
+            <div class="contact-box">
+                <div class="contact-icon">📞</div>
+                <h3>Phone</h3>
+                <p>
+                    <a href="tel:+963944001420">+963-944-001-420</a>
+                </p>
+            </div>
+
+            <div class="contact-box">
+                <div class="contact-icon">✉️</div>
+                <h3>Email</h3>
+                <p>
+                    <a href="/cdn-cgi/l/email-protection#4a3f2d2b38233e64383a29642925273a2b24330a2d272b232664292527"><span class="__cf_email__" data-cfemail="780d1f190a110c560a081b561b171508191601381f15191114561b1715">[email&#160;protected]</span></a>
+                </p>
+            </div>
+
+            <div class="contact-box">
+                <div class="contact-icon">📱</div>
+                <h3>Social Media</h3>
+                <p>
+                    <a href="https://www.instagram.com/ugarit.company" target="_blank">Instagram: @ugarit.company</a><br><br>
+                    <a href="https://www.facebook.com/ugarit.company" target="_blank">Facebook: Ugarit Company</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>UGARIT Company for Construction</h3>
+                <p>Leading construction and restoration company in Syria, dedicated to preserving architectural heritage while building for the future.</p>
+                <p style="margin-top: 1.5rem; font-style: italic; color: var(--gold);">#وللحلم_بقية</p>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/ugarit.company" target="_blank" class="social-btn" title="Instagram">📷</a>
+                    <a href="https://www.facebook.com/ugarit.company" target="_blank" class="social-btn" title="Facebook">👥</a>
+                    <a href="/cdn-cgi/l/email-protection#b3c6d4d2c1dac79dc1c3d09dd0dcdec3d2ddcaf3d4ded2dadf9dd0dcde" class="social-btn" title="Email">✉️</a>
+                    <a href="tel:+963944001420" class="social-btn" title="Phone">📞</a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#vision">Vision & Mission</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#team">Our Team</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#projects">Heritage Restoration</a></li>
+                    <li><a href="#projects">Construction</a></li>
+                    <li><a href="#projects">Finishing Works</a></li>
+                    <li><a href="#activities">Engineering Studies</a></li>
+                    <li><a href="#download">Company Profile</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 UGARIT Company for Construction. All Rights Reserved.</p>
+            <p style="margin-top: 0.5rem;">Damascus • Latakia • Aleppo</p>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/963944001420" target="_blank" class="whatsapp-float" title="Contact us on WhatsApp">
+        <svg viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+    </a>
+
+    <script>
+        console.log('UGARIT - Script Loaded');
+
+        // Global Functions
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+let currentSlide = 0;
+let currentProjectImages = [];
+       function openProjectModal(projectId) {
+    const modal = document.getElementById('projectModal');
+    const project = projectData[projectId];
+    
+    document.getElementById('modalTitle').textContent = project.title;
+    document.getElementById('modalDescription').textContent = project.desc;
+    
+    // Store images
+    currentProjectImages = project.images;
+    currentSlide = 0;
+    
+    // Show first image
+    updateSlideImage();
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+        function updateSlideImage() {
+    const img = document.querySelector('.slide-image');
+    const counter = document.getElementById('slideCounter');
+    
+    img.src = currentProjectImages[currentSlide];
+    counter.textContent = `${currentSlide + 1} / ${currentProjectImages.length}`;
+    
+    // Fallback if image doesn't load
+    img.onerror = function() {
+        this.style.display = 'none';
+        this.parentElement.innerHTML = '<div style="padding: 3rem; color: var(--text-secondary);">Image not found</div>';
+    };
+}
+
+function changeSlide(direction) {
+    currentSlide += direction;
+    
+    // Loop back to start/end
+    if (currentSlide >= currentProjectImages.length) {
+        currentSlide = 0;
+    } else if (currentSlide < 0) {
+        currentSlide = currentProjectImages.length - 1;
+    }
+    
+    updateSlideImage();
+}
+
+function closeProjectModal() {
+    document.getElementById('projectModal').classList.remove('active');
+    document.body.style.overflow = '';
+    currentSlide = 0;
+    currentProjectImages = [];
+}
+        // Project Data
+        const projectData = {
+            project1: { 
+                title: 'Our Lady of Assumption Monastery', 
+                desc: 'Comprehensive restoration of historic monastery in Slunfeh, Latakia. Church rehabilitation, courtyard redesign, playground development, and landscape reorganization.', 
+                images: ['images/project-01-1.jpg', 'images/project-01-2.jpg', 'images/project-01-3.jpg', 'images/project-01-4.jpg'] 
+            },
+            project2: { 
+                title: 'Bab Touma Monastery', 
+                desc: 'Historic restoration in Old Damascus. Basement rehabilitation, garden redesign, annex construction, and underground infrastructure development.', 
+                images: ['images/project-02-1.jpg', 'images/project-02-2.jpg', 'images/project-02-3.jpg', 'images/project-02-4.jpg'] 
+            },
+            project3: { 
+                title: 'Care House Development', 
+                desc: 'Vertical expansion preserving traditional Damascene design. Additional floor construction with aesthetic enhancements and ground floor restoration.', 
+                images: ['images/project-03-1.jpg', 'images/project-03-2.jpg', 'images/project-03-3.jpg', 'images/project-03-4.jpg'] 
+            },
+            project4: { 
+                title: 'Maronite Diocese', 
+                desc: 'Architectural and structural restoration. Basement restoration, hall rehabilitation, new arch construction, and cemetery infrastructure development.', 
+                images: ['images/project-04-1.jpg', 'images/project-04-2.jpg', 'images/project-04-3.jpg', 'images/project-04-4.jpg'] 
+            },
+            project5: { 
+                title: 'Latin Cathedral Restoration', 
+                desc: 'Post-earthquake restoration in Aleppo. Damaged roof reconstruction, structural reinforcement, and meticulous aesthetic detailing.', 
+                images: ['images/project-05-1.jpg', 'images/project-05-2.jpg', 'images/project-05-3.jpg', 'images/project-05-4.jpg'] 
+            },
+            project6: { 
+                title: 'Office Renovations', 
+                desc: 'Contemporary workspace design across multiple locations. Complete renovation, furnishing, and technical equipment for organizations.', 
+                images: ['images/project-06-1.jpg', 'images/project-06-2.jpg', 'images/project-06-3.jpg', 'images/project-06-4.jpg'] 
+            }
+        };
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM Ready!');
+
+            // Theme Toggle
+            const themeBtn = document.getElementById('themeToggle');
+            const html = document.documentElement;
+            
+            if (themeBtn) {
+                // Default is light, only set dark if saved
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                
+                // Remove any existing data-theme if it's light (default)
+                if (savedTheme === 'light') {
+                    html.removeAttribute('data-theme');
+                } else {
+                    html.setAttribute('data-theme', 'dark');
+                }
+                
+                themeBtn.textContent = savedTheme === 'light' ? '🌙' : '☀';
+                console.log('Theme loaded:', savedTheme);
+
+                themeBtn.addEventListener('click', function() {
+                    const currentTheme = html.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+                    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                    
+                    if (newTheme === 'light') {
+                        html.removeAttribute('data-theme');
+                    } else {
+                        html.setAttribute('data-theme', 'dark');
+                    }
+                    
+                    localStorage.setItem('theme', newTheme);
+                    themeBtn.textContent = newTheme === 'light' ? '🌙' : '☀';
+                    
+                    console.log('Theme changed to:', newTheme);
+                });
+            }
+
+            // Hero Slideshow
+            const slides = document.querySelectorAll('.hero-slide');
+            if (slides.length > 0) {
+                let current = 0;
+                setInterval(function() {
+                    slides[current].classList.remove('active');
+                    current = (current + 1) % slides.length;
+                    slides[current].classList.add('active');
+                }, 5000);
+                console.log('Slideshow started with', slides.length, 'slides');
+            }
+
+            // Modal close on backdrop click
+            const modal = document.getElementById('projectModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) closeProjectModal();
+                });
+            }
+
+            // ESC key to close modal
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeProjectModal();
+            });
+
+            console.log('All scripts initialized!');
+        });
+    </script>
+</body>
+</html>
