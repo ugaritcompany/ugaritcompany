@@ -1324,6 +1324,130 @@
     max-height: 600px  ;    
     object-fit: contain ;    
 }
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 1.2rem;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.social-link:hover {
+    border-color: var(--gold);
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(212, 165, 116, 0.4);
+}
+
+/* Light mode hover - dark background */
+.social-link:hover {
+    background: var(--navy);
+    color: white;
+}
+
+.social-link:hover .social-icon {
+    transform: scale(1.1);
+    color: white;
+}
+
+/* Dark mode hover - gold background */
+[data-theme="dark"] .social-link:hover {
+    background: var(--gold);
+    color: var(--navy);
+}
+
+[data-theme="dark"] .social-link:hover .social-icon {
+    color: var(--navy);
+}
+.social-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.social-link:hover .social-icon {
+    transform: scale(1.1);
+}
+
+.social-link span {
+    font-size: 1rem;
+}
+.email-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    margin-top: 1.5rem;
+    word-break: break-all;
+}
+
+.email-link:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(212, 165, 116, 0.3);
+    background: var(--navy);
+    color: white;
+}
+
+[data-theme="dark"] .email-link:hover {
+    background: var(--gold);
+    color: var(--navy);
+}
+
+.email-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.email-link:hover .email-icon {
+    transform: scale(1.1) rotate(-10deg);
+}
+
+@media (max-width: 768px) {
+    .email-link {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .email-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .social-link {
+        padding: 0.7rem 1rem;
+        font-size: 0.95rem;
+    }
+    
+    .social-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
 
         @media (max-width: 1200px) {
             .projects-grid {
@@ -1355,6 +1479,177 @@
                 grid-template-columns: 1fr;
             }
         }
+
+    /* CEO Highlight Card */
+.ceo-highlight {
+    max-width: 600px;
+    margin: 0 auto 5rem;
+}
+
+.ceo-card {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    border: 3px solid var(--gold);
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.ceo-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(212, 165, 116, 0.1) 0%, transparent 70%);
+    transform: scale(0);
+    transition: transform 0.6s ease;
+}
+
+.ceo-card:hover::before {
+    transform: scale(1);
+}
+
+.ceo-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 60px rgba(212, 165, 116, 0.4);
+}
+
+.ceo-image-container {
+    width: 250px;
+    height: 300px;
+    margin: 0 auto 1.5rem;
+    position: relative;
+    overflow: hidden;
+    border: 4px solid var(--gold);
+    border-radius: 10px;
+}
+
+.ceo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.ceo-card:hover .ceo-image {
+    transform: scale(1.1);
+}
+
+.ceo-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--gold-dark) 0%, var(--navy-dark) 100%);
+}
+
+.ceo-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+    padding: 2rem 1rem 1rem;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+}
+
+.ceo-card:hover .ceo-overlay {
+    transform: translateY(0);
+}
+
+.view-profile-btn {
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.ceo-card-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+}
+
+.ceo-card-title {
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.ceo-card-exp {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+/* CEO Modal */
+.ceo-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 2000;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.ceo-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.ceo-modal-content {
+    background: var(--bg-alt);
+    max-width: 1200px;
+    width: 100%;
+    border: 3px solid var(--gold);
+    position: relative;
+    animation: slideUp 0.4s ease;
+    padding: 3rem;
+}
+
+.ceo-modal-layout {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.ceo-modal-image {
+    position: sticky;
+    top: 2rem;
+}
+
+.ceo-modal-image img {
+    width: 100%;
+    height: auto;
+    border: 4px solid var(--gold);
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 968px) {
+    .ceo-modal-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .ceo-modal-image {
+        position: relative;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
     </style>
 </head>
 <body>
@@ -1627,8 +1922,8 @@
                     </div>
                     <div class="project-content">
                         <div class="project-number">05 — 06</div>
-                        <h3 class="project-title">Latin Cathedral Restoration</h3>
-                        <p class="project-location">Aleppo</p>
+                        <h3 class="project-title">Our Lady of Assumption Monastery</h3>
+                        <p class="project-location">Tartous - Kafron</p>
                     </div>
                 </div>
 
@@ -1744,35 +2039,58 @@
     </section>
 
     <!-- Team -->
-    <section class="team-section" id="team">
-        <div class="section-header">
-            <div class="section-tag">Human Resources</div>
-            <h2 class="section-title">Our Professional Team</h2>
-            <p class="section-subtitle">Specialized engineers and expert craftsmen</p>
-        </div>
-        <div class="team-grid">
-            <div class="team-card">
-                <div class="team-icon">👷</div>
-                <h3 class="team-role">Civil Engineers</h3>
-                <p class="team-count">Specialized Engineering Team</p>
+    <!-- Team & Leadership Section -->
+<section class="team-section" id="team">
+    <div class="section-header">
+        <div class="section-tag">Human Resources</div>
+        <h2 class="section-title">Our Professional Team</h2>
+        <p class="section-subtitle">Specialized engineers and expert craftsmen</p>
+    </div>
+    
+    <!-- CEO Card - Clickable -->
+    <div class="ceo-highlight">
+        <div class="ceo-card" onclick="openCEOModal()">
+            <div class="ceo-image-container">
+                <img src="images/director.jpg" alt="Ramez Zaza" class="ceo-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="ceo-image-placeholder" style="display:none;">
+                    <span style="font-size: 4rem;">👔</span>
+                </div>
+                <div class="ceo-overlay">
+                    <span class="view-profile-btn">View Full Profile</span>
+                </div>
             </div>
-            <div class="team-card">
-                <div class="team-icon">🏛️</div>
-                <h3 class="team-role">Restoration Specialists</h3>
-                <p class="team-count">Expert Heritage Craftsmen</p>
-            </div>
-            <div class="team-card">
-                <div class="team-icon">📐</div>
-                <h3 class="team-role">Architects</h3>
-                <p class="team-count">Creative Design Team</p>
-            </div>
-            <div class="team-card">
-                <div class="team-icon">⚙️</div>
-                <h3 class="team-role">Technical Engineers</h3>
-                <p class="team-count">Installation & Equipment Experts</p>
+            <div class="ceo-card-info">
+                <h3>Ramez Abdalnour Zaza</h3>
+                <p class="ceo-card-title">Founder & CEO</p>
+                <p class="ceo-card-exp">20+ Years Experience</p>
             </div>
         </div>
-    </section>
+    </div>
+    
+    <!-- Team Grid -->
+    <div class="team-grid">
+        <div class="team-card">
+            <div class="team-icon">👷</div>
+            <h3 class="team-role">Civil Engineers</h3>
+            <p class="team-count">Specialized Engineering Team</p>
+        </div>
+        <div class="team-card">
+            <div class="team-icon">🏛️</div>
+            <h3 class="team-role">Restoration Specialists</h3>
+            <p class="team-count">Expert Heritage Craftsmen</p>
+        </div>
+        <div class="team-card">
+            <div class="team-icon">📐</div>
+            <h3 class="team-role">Architects</h3>
+            <p class="team-count">Creative Design Team</p>
+        </div>
+        <div class="team-card">
+            <div class="team-icon">⚙️</div>
+            <h3 class="team-role">Technical Engineers</h3>
+            <p class="team-count">Installation & Equipment Experts</p>
+        </div>
+    </div>
+</section>
 
     <!-- Activities -->
     <section class="activities-section" id="activities">
@@ -1800,31 +2118,36 @@
         </a>
     </section>
 
-    <!-- CEO -->
-    <section class="ceo-section" id="ceo">
-        <div class="section-header" style="margin-bottom: 4rem;">
-            <div class="section-tag" style="color: var(--gold);">Leadership</div>
-            <h2 class="section-title" style="color: var(--gold);">Meet Our CEO</h2>
-            <p class="section-subtitle" style="color: rgba(255,255,255,0.7);">Two decades of excellence in construction and restoration</p>
-        </div>
-        <div class="ceo-container">
-            <div>
-                <img src="images/director.jpg" alt="Ramez Zaza" class="ceo-photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                <div class="ceo-photo-placeholder" style="display:none;">CEO PHOTO</div>
+
+<!-- CEO Modal -->
+<div class="ceo-modal" id="ceoModal">
+    <div class="ceo-modal-content">
+        <button class="modal-close" onclick="closeCEOModal()">×</button>
+        
+        <div class="ceo-modal-layout">
+            <div class="ceo-modal-image">
+                <img src="images/director.jpg" alt="Ramez Zaza" onerror="this.style.display='none'">
             </div>
-            <div class="ceo-info">
-                <h2>Ramez Abdalnour Zaza</h2>
-                <p class="ceo-title">Founder & Director, UGARIT Company for Construction</p>
-                <p class="ceo-bio">
+            
+            <div class="ceo-modal-info">
+                <div class="section-tag" style="color: var(--gold); margin-bottom: 1rem;">Leadership</div>
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--text); margin-bottom: 0.5rem;">Ramez Abdalnour Zaza</h2>
+                <p style="font-size: 1.2rem; color: var(--gold); margin-bottom: 2rem; font-style: italic;">Founder & Director, UGARIT Company for Construction</p>
+                
+                <p style="line-height: 1.9; color: var(--text-secondary); margin-bottom: 1.5rem;">
                     With over 20 years of distinguished experience in construction management and heritage restoration, Ramez Zaza has led UGARIT to become a trusted name in Syrian construction. His expertise combines traditional craftsmanship with modern innovation, overseeing major projects including the Saint Ananias Shrine restoration and serving as the accredited engineering consultant for the Syriac Catholic Archdiocese in Damascus.
                 </p>
-                <p class="ceo-bio">
+                
+                <p style="line-height: 1.9; color: var(--text-secondary); margin-bottom: 2rem;">
                     A graduate of Tishreen University's Faculty of Economics, Ramez brings both business acumen and technical expertise to every project, ensuring exceptional quality and client satisfaction.
                 </p>
-                <a href="director.html" class="ceo-link">View Full Profile →</a>
+                
+                
             </div>
         </div>
-    </section>
+    </div>
+</div>
+    
 
     <!-- Contact -->
     <section class="contact-section" id="contact">
@@ -1853,21 +2176,43 @@
             </div>
 
             <div class="contact-box">
-                <div class="contact-icon">✉️</div>
-                <h3>Email</h3>
-                <p>
-                    <a href="/cdn-cgi/l/email-protection#4a3f2d2b38233e64383a29642925273a2b24330a2d272b232664292527"><span class="__cf_email__" data-cfemail="780d1f190a110c560a081b561b171508191601381f15191114561b1715">[email&#160;protected]</span></a>
-                </p>
-            </div>
+    <div class="contact-icon">✉️</div>
+    <h3>Email</h3>
+    <a href="mailto:ugarit.rpc.company@gmail.com" class="email-link">
+        <svg class="email-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+        <span>ugarit.rpc.company@gmail.com</span>
+    </a>
+</div>
 
             <div class="contact-box">
-                <div class="contact-icon">📱</div>
-                <h3>Social Media</h3>
-                <p>
-                    <a href="https://www.instagram.com/ugarit.company" target="_blank">Instagram: @ugarit.company</a><br><br>
-                    <a href="https://www.facebook.com/ugarit.company" target="_blank">Facebook: Ugarit Company</a>
-                </p>
-            </div>
+    <div class="contact-icon">📱</div>
+    <h3>Social Media</h3>
+    <div class="social-links">
+        <a href="https://www.instagram.com/ugarit.company" target="_blank" class="social-link">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+            <span>@ugarit.company</span>
+        </a>
+        
+        <a href="https://www.facebook.com/ugarit.company" target="_blank" class="social-link">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            <span>Ugarit Company</span>
+        </a>
+        
+        <a href="https://www.linkedin.com/company/ugarit-for-construction" target="_blank" class="social-link">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <span>Ugarit for Construction</span>
+        </a>
+    </div>
+</div>
         </div>
     </section>
 
@@ -2080,6 +2425,35 @@ function closeProjectModal() {
 
             console.log('All scripts initialized!');
         });
+
+        function openCEOModal() {
+    const modal = document.getElementById('ceoModal');
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeCEOModal() {
+    const modal = document.getElementById('ceoModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Close CEO modal on backdrop click
+document.addEventListener('DOMContentLoaded', function() {
+    const ceoModal = document.getElementById('ceoModal');
+    if (ceoModal) {
+        ceoModal.addEventListener('click', function(e) {
+            if (e.target === this) closeCEOModal();
+        });
+    }
+    
+    // ESC key to close CEO modal
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && ceoModal.classList.contains('active')) {
+            closeCEOModal();
+        }
+    });
+});
     </script>
 </body>
 </html>
